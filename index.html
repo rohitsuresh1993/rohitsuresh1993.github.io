@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rohit Suresh — Data Scientist. All the machine learning that's fit to deploy." />
+  <title>The Dispatch — Rohit Suresh, Data Scientist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=EB+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --paper:      #f2e8cc;
+      --paper-dark: #e0d0a8;
+      --paper-mid:  #ecddb8;
+      --ink:        #1a1208;
+      --ink-mid:    #3d2e18;
+      --ink-light:  #7a6a4a;
+      --rule:       #1a1208;
+      --rule-light: #a89870;
+      --red:        #8b1a1a;
+      --max-w:      900px;
+    }
+
+    html { scroll-behavior: smooth; font-size: 20px; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background-color: var(--paper);
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(26,18,8,0.04) 28px, rgba(26,18,8,0.04) 29px);
+      color: var(--ink);
+      line-height: 1.7;
+      font-size: 26px;
+    }
+
+    a { color: inherit; }
+
+    /* ── SKIP LINK ── */
+    .skip { position:absolute; top:-100px; left:1rem; background:var(--ink); color:var(--paper); padding:.5rem 1rem; font-family:'DM Sans',sans-serif; font-size:.75rem; text-decoration:none; z-index:999; }
+    .skip:focus { top:0.5rem; }
+
+    /* ══════════════════════════════════════════
+       MASTHEAD
+    ══════════════════════════════════════════ */
+    .masthead {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 1.5rem 1.5rem 0;
+      text-align: center;
+    }
+
+    .mast-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'EB Garamond', serif;
+      font-size: 0.72rem;
+      color: var(--ink-mid);
+      letter-spacing: 0.04em;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+
+    .mast-topbar span { flex: 1; }
+    .mast-topbar span:nth-child(2) { text-align: center; }
+    .mast-topbar span:nth-child(3) { text-align: right; }
+
+    .mast-rule-thick {
+      border: none;
+      border-top: 4px solid var(--rule);
+      margin: 0.4rem 0 0;
+    }
+    .mast-rule-thin {
+      border: none;
+      border-top: 1px solid var(--rule);
+      margin: 0.2rem 0;
+    }
+    .mast-rule-double {
+      border: none;
+      height: 5px;
+      border-top: 1.5px solid var(--rule);
+      border-bottom: 1.5px solid var(--rule);
+      margin: 0.35rem 0;
+    }
+
+    .mast-title {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      line-height: 1;
+      color: var(--ink);
+      padding: 0.4rem 0 0.3rem;
+      letter-spacing: 0.02em;
+    }
+
+    .mast-subtitle {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      padding: 0.25rem 0;
+      font-style: italic;
+    }
+
+    .mast-dateline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      padding: 0.4rem 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-top: 0.3rem;
+    }
+    .mast-dateline span { flex: 1; }
+    .mast-dateline span:nth-child(2) { text-align: center; }
+    .mast-dateline span:nth-child(3) { text-align: right; }
+
+    /* ══════════════════════════════════════════
+       NAV (sticky section bar)
+    ══════════════════════════════════════════ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--ink);
+    }
+    .nav-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    nav a {
+      display: inline-block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--paper);
+      text-decoration: none;
+      padding: 0.55rem 1.1rem;
+      border-right: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.15s, color 0.15s;
+    }
+    nav a:first-child { border-left: 1px solid rgba(255,255,255,0.15); }
+    nav a:hover { background: rgba(255,255,255,0.12); }
+    .nav-cta { background: var(--red) !important; border-color: var(--red) !important; }
+    .nav-cta:hover { opacity: 0.85; }
+    @media (max-width: 560px) { .nav-hide { display: none; } }
+
+    .nav-td-logo {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: 1.35rem;
+      color: var(--paper);
+      text-decoration: none;
+      padding: 0.3rem 1rem;
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-left: 1px solid rgba(255,255,255,0.15);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-4px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      line-height: 1;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+    }
+    nav.scrolled .nav-td-logo {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* ══════════════════════════════════════════
+       SHARED LAYOUT
+    ══════════════════════════════════════════ */
+    .page-wrap {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-divider {
+      max-width: var(--max-w);
+      margin: 0 auto 0;
+      padding: 0 1.5rem;
+    }
+    .ornament-rule {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.5rem 0;
+    }
+    .ornament-rule::before,
+    .ornament-rule::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .ornament-rule span {
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      letter-spacing: 0.2em;
+    }
+
+    /* ══════════════════════════════════════════
+       DEPARTMENT HEADERS
+    ══════════════════════════════════════════ */
+    .dept-header {
+      border-top: 3px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 0.3rem 0;
+      margin-bottom: 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .dept-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+    .dept-rule { flex: 1; height: 1px; background: var(--rule-light); }
+    .dept-number {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.72rem;
+      font-style: italic;
+      color: var(--ink-light);
+    }
+
+    /* ══════════════════════════════════════════
+       HERO — FRONT PAGE
+    ══════════════════════════════════════════ */
+    #about { padding: 1.5rem 0 0; }
+
+    .hero-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      text-align: center;
+      padding: 1rem 0 0.5rem;
+      text-transform: uppercase;
+    }
+    .hero-deck {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.05rem;
+      font-style: italic;
+      text-align: center;
+      color: var(--ink-mid);
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0.6rem;
+    }
+    .hero-byline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--rule);
+      margin-bottom: 1rem;
+    }
+
+    .hero-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr 220px;
+      gap: 0;
+      align-items: start;
+    }
+    @media (max-width: 620px) {
+      .hero-body { grid-template-columns: 1fr 1fr; }
+      .hero-portrait { display: none; }
+    }
+    @media (max-width: 440px) {
+      .hero-body { grid-template-columns: 1fr; }
+    }
+
+    .hero-col {
+      padding: 0 1.25rem 0 0;
+      font-size: 0.93rem;
+      line-height: 1.7;
+      color: var(--ink-mid);
+      border-right: 1px solid var(--rule-light);
+    }
+    .hero-col:last-of-type { padding: 0 0 0 1.25rem; border-right: none; }
+    .hero-col:nth-child(2) { padding: 0 1.25rem; }
+
+    .drop-cap::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.8rem;
+      font-weight: 900;
+      line-height: 0.75;
+      float: left;
+      margin: 0.1rem 0.25rem 0 0;
+      color: var(--ink);
+    }
+
+    .hero-portrait {
+      padding-left: 1.25rem;
+      border-left: 1px solid var(--rule-light);
+    }
+    .portrait-frame {
+      border: 2px solid var(--rule);
+      padding: 4px;
+      background: var(--paper-dark);
+    }
+    .portrait-inner {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: var(--paper-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .portrait-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .portrait-initials {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink-light);
+    }
+    .portrait-caption {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 0.7rem;
+      color: var(--ink-light);
+      text-align: center;
+      margin-top: 0.4rem;
+      line-height: 1.4;
+    }
+
+    .hero-meta-strip {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 2px solid var(--rule);
+    }
+    .hero-meta-item { }
+    .hero-meta-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      display: block;
+    }
+    .hero-meta-val {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--rule-light);
+      align-items: center;
+    }
+    .btn-ink {
+      display: inline-block;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.3rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-ink:hover { background: var(--red); }
+    .btn-txt {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.88rem;
+      font-style: italic;
+      color: var(--ink-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .btn-txt:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* ══════════════════════════════════════════
+       PROJECTS
+    ══════════════════════════════════════════ */
+    .projects-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 520px) { .projects-cols { grid-template-columns: 1fr; } }
+
+    .proj-story {
+      padding: 0 1.25rem 1.5rem 0;
+      margin-bottom: 1.5rem;
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .proj-story:nth-child(2n) {
+      padding: 0 0 1.5rem 1.25rem;
+      border-right: none;
+    }
+    .proj-story:nth-last-child(-n+2) { border-bottom: none; margin-bottom: 0; }
+    @media (max-width: 520px) {
+      .proj-story, .proj-story:nth-child(2n) {
+        padding: 0 0 1.25rem;
+        border-right: none;
+        border-bottom: 1px solid var(--rule-light);
+        margin-bottom: 1.25rem;
+      }
+      .proj-story:last-child { border-bottom: none; margin-bottom: 0; }
+      .proj-story:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule-light); }
+      .proj-story:last-child { border-bottom: none !important; }
+    }
+
+    .proj-kicker {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
+    .proj-story h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+    .proj-deck {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+      margin-bottom: 0.6rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .proj-body {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+    .proj-pullquote {
+      border-top: 2px solid var(--rule);
+      border-bottom: 2px solid var(--rule);
+      padding: 0.5rem 0.75rem;
+      margin: 0.75rem 0;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .proj-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.75rem;
+    }
+    .proj-tag {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      border: 0.5px solid var(--rule-light);
+      padding: 0.1rem 0.45rem;
+    }
+    .proj-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+    }
+    .proj-link:hover { color: var(--red); border-color: var(--red); }
+
+    /* ══════════════════════════════════════════
+       SKILLS (Classified Notices)
+    ══════════════════════════════════════════ */
+    .skills-box {
+      border: 1.5px solid var(--rule);
+    }
+    .skills-box-header {
+      background: var(--ink);
+      color: var(--paper);
+      text-align: center;
+      padding: 0.4rem 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 520px) { .skills-grid { grid-template-columns: 1fr; } }
+    .skills-group {
+      padding: 1.25rem 1.4rem;
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
+    }
+    .skills-group:nth-child(2n) { border-right: none; }
+    .skills-group:nth-last-child(-n+2) { border-bottom: none; }
+    @media (max-width: 520px) {
+      .skills-group { border-right: none; }
+      .skills-group:last-child { border-bottom: none; }
+      .skills-group:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule-light); }
+      .skills-group:last-child { border-bottom: none !important; }
+    }
+    /* Competency category inner layout */
+    .comp-inner {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+    .comp-icon {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      color: var(--ink);
+      opacity: 0.7;
+    }
+    .comp-right { flex: 1; min-width: 0; }
+    .comp-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0.75rem;
+    }
+    .comp-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .comp-pill {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.88rem;
+      color: var(--ink-mid);
+      border: 0.5px solid var(--rule-light);
+      padding: 0.12rem 0.6rem;
+      background: rgba(26,18,8,0.03);
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════════════
+       WHY ME
+    ══════════════════════════════════════════ */
+    .why-banner {
+      background: var(--ink);
+      color: var(--paper);
+      text-align: center;
+      padding: 0.9rem 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      border-bottom: 1.5px solid var(--rule);
+    }
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1.5px solid var(--rule);
+      border-top: none;
+    }
+    @media (max-width: 600px) { .why-grid { grid-template-columns: 1fr; } }
+    .why-col {
+      padding: 1.5rem 1.4rem;
+      border-right: 1px solid var(--rule-light);
+    }
+    .why-col:last-child { border-right: none; }
+    @media (max-width: 600px) {
+      .why-col { border-right: none; border-bottom: 1px solid var(--rule-light); }
+      .why-col:last-child { border-bottom: none; }
+    }
+    .why-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--rule-light);
+      line-height: 1;
+      margin-bottom: 0.45rem;
+    }
+    .why-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .why-body {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.93rem;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    /* ══════════════════════════════════════════
+       OFF THE RECORD (Passions)
+    ══════════════════════════════════════════ */
+    .passions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1.5px solid var(--rule);
+    }
+    @media (max-width: 520px) { .passions-grid { grid-template-columns: 1fr; } }
+    .passion-card {
+      padding: 1.5rem 1.75rem;
+      border-right: 1px solid var(--rule-light);
+      border-bottom: 1px solid var(--rule-light);
+      display: flex;
+      gap: 1.1rem;
+      align-items: flex-start;
+    }
+    .passion-card:nth-child(2n) { border-right: none; }
+    .passion-card:nth-last-child(-n+2) { border-bottom: none; }
+    @media (max-width: 520px) {
+      .passion-card { border-right: none; }
+      .passion-card:last-child { border-bottom: none; }
+      .passion-card:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule-light); }
+      .passion-card:last-child { border-bottom: none !important; }
+    }
+    .passion-icon {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      color: var(--ink-light);
+      margin-top: 0.1rem;
+    }
+    .passion-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+    .passion-body {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      line-height: 1.65;
+    }
+
+    /* ══════════════════════════════════════════
+       EXPERIENCE (Chronicle)
+    ══════════════════════════════════════════ */
+    .chronicle { display: flex; flex-direction: column; }
+    .chronicle-item {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 0;
+      border-bottom: 1px solid var(--rule-light);
+      padding: 1.5rem 0;
+    }
+    .chronicle-item:last-of-type { border-bottom: none; }
+    @media (max-width: 520px) {
+      .chronicle-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    }
+    .chronicle-date-col {
+      padding-right: 1.5rem;
+      border-right: 1px solid var(--rule-light);
+    }
+    .chronicle-date {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--ink-light);
+      line-height: 1.5;
+    }
+    @media (max-width: 520px) {
+      .chronicle-date-col { padding-right: 0; border-right: none; }
+    }
+    .chronicle-body { padding-left: 1.5rem; }
+    @media (max-width: 520px) { .chronicle-body { padding-left: 0; } }
+    .chronicle-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+    .chronicle-dateline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.6rem;
+    }
+    .chronicle-body p {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+    }
+
+    strong { color: var(--red); font-weight: 600; font-style: italic; }
+    .edu-strip {
+      border-top: 2px solid var(--rule);
+      padding-top: 1.25rem;
+      margin-top: 0.5rem;
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .edu-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      display: block;
+      margin-bottom: 0.1rem;
+    }
+    .edu-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .edu-degree {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--ink-mid);
+    }
+
+    /* ══════════════════════════════════════════
+       CONTACT (Notices)
+    ══════════════════════════════════════════ */
+    .notices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1.5px solid var(--rule);
+    }
+    @media (max-width: 520px) { .notices-grid { grid-template-columns: 1fr; } }
+    .notice-col {
+      padding: 1.5rem 1.75rem;
+    }
+    .notice-col:first-child {
+      border-right: 1px solid var(--rule-light);
+    }
+    .notice-intro {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .notice-cta {
+      display: inline-block;
+      background: var(--red);
+      color: var(--paper);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.4rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .notice-cta:hover { opacity: 0.85; }
+    .notice-btns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      justify-content: center;
+      height: 100%;
+    }
+    .notice-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.65rem 1.1rem;
+      transition: background 0.15s;
+    }
+    .notice-btn:hover { background: var(--red); }
+    .notice-btn svg { flex-shrink: 0; }
+
+    /* ══════════════════════════════════════════
+       OFF-RECORD LINK PANEL
+    ══════════════════════════════════════════ */
+    .off-links-panel {
+      border: 1.5px solid var(--rule);
+      border-top: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+    }
+    @media (max-width: 600px) { .off-links-panel { grid-template-columns: 1fr; } }
+    .off-links-group {
+      padding: 1.1rem 1.5rem;
+      border-right: 1px solid var(--rule-light);
+    }
+    .off-links-group:last-child { border-right: none; }
+    @media (max-width: 600px) {
+      .off-links-group { border-right: none; border-bottom: 1px solid var(--rule-light); }
+      .off-links-group:last-child { border-bottom: none; }
+    }
+    .off-links-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.52rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+    .off-links-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .off-link svg {
+      display: block;
+      width: 24px;
+      height: 24px;
+    }
+    .off-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.15s, background 0.15s;
+      padding: 0.8rem 0.5rem;
+      text-align: center;
+    }
+    .off-link:hover { color: var(--red); background: rgba(26,18,8,0.02); }
+    .off-link img.icon-img {
+      width: 24px; height: 24px; display: block;
+      filter: brightness(0) saturate(0) opacity(0.75);
+      transition: filter 0.15s;
+    }
+    .off-link:hover img.icon-img {
+      filter: brightness(0) saturate(100%) invert(15%) sepia(80%) saturate(1200%) hue-rotate(330deg);
+    }
+    .off-link .material-icons {
+      font-size: 24px;
+      line-height: 1;
+      display: block;
+      color: inherit;
+    }
+    .off-link-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.48rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: inherit;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER
+    ══════════════════════════════════════════ */
+    footer {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-top: 3px solid var(--rule);
+      margin-top: 0;
+    }
+    .footer-flag {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+    .footer-note {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main" class="skip">Skip to content</a>
+
+<!-- ══ MASTHEAD ══ -->
+<div class="masthead">
+  <div class="mast-topbar">
+    <span>Seattle, Washington</span>
+    <span>Available &amp; Open to Opportunities</span>
+    <span>Est. 1593 &middot; Vol. XXXIII</span>
+  </div>
+  <hr class="mast-rule-thick" />
+  <hr class="mast-rule-thin" />
+  <div class="mast-title">The Dispatch</div>
+  <div class="mast-subtitle">&ldquo;All The Machine Learning That&rsquo;s Fit To Deploy&rdquo;</div>
+  <div class="mast-dateline">
+    <span>2026</span>
+    <span>Data Science &middot; Machine Learning &middot; Artificial Intelligence</span>
+    <span>Price: Free</span>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav aria-label="Primary navigation" id="main-nav">
+  <div class="nav-inner">
+    <a href="#about" class="nav-td-logo" aria-label="The Dispatch — back to top">TD</a>
+    <a href="#about" class="nav-hide">Front Page</a>
+    <a href="#projects" class="nav-hide">Projects</a>
+    <a href="#why-me" class="nav-hide">Why Me</a>
+    <a href="#skills" class="nav-hide">Skills</a>
+    <a href="#off-record" class="nav-hide">Off Duty</a>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ══ HERO / FRONT PAGE ══ -->
+<div id="about">
+<div class="page-wrap" style="padding-top:1.5rem; padding-bottom:0;">
+
+  <div class="hero-headline">Local Scientist Ships ML Systems<br/>at Production Scale</div>
+  <div class="hero-deck">Builds anomaly detectors, RAG pipelines, and LLM-powered applications trusted by real users</div>
+  <div class="hero-byline">
+    <span>By Rohit Suresh &middot; Data Scientist</span>
+    <span>Dateline: Seattle, Washington</span>
+  </div>
+
+  <div class="hero-body">
+    <div class="hero-col">
+      <p class="drop-cap">I am a data scientist based in Seattle with a background in industrial engineering. I build ML systems that work beyond the notebook — most recently at Charter Communications, shipping end-to-end pipelines on AWS handling real production traffic.</p>
+    </div>
+    <div class="hero-col">
+      <p>My work spans model design, cloud deployment on Amazon EKS, and full-stack applications. I believe the most valuable thing a data scientist can do is ship something that solves a real problem — and measure whether it worked.</p>
+    </div>
+    <div class="hero-portrait">
+      <!-- Swap portrait-inner for <img src="your-photo.jpg" alt="Rohit Suresh"> -->
+      <div class="portrait-frame">
+        <div class="portrait-inner">
+          <span class="portrait-initials"><img src="portrait.jpg" alt="Rohit Suresh"></span>
+        </div>
+      </div>
+      <div class="portrait-caption">Rohit Suresh,<br/>Data Scientist</div>
+    </div>
+  </div>
+
+  <div class="hero-meta-strip">
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Most Recently</span>
+      <span class="hero-meta-val">Charter Communications</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Education</span>
+      <span class="hero-meta-val">M.S. Industrial Engineering, Iowa State</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Status</span>
+      <span class="hero-meta-val">Available &middot; Open to Roles</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="hero-meta-label">Location</span>
+      <span class="hero-meta-val">Seattle, USA</span>
+    </div>
+  </div>
+
+  <div class="hero-cta-row">
+    <a href="#contact" class="btn-ink">Get in touch</a>
+    <a href="#projects" class="btn-txt">Read the projects &rarr;</a>
+    <a href="https://github.com/rohitsuresh1993" target="_blank" rel="noopener" class="btn-txt">GitHub &rarr;</a>
+  </div>
+
+</div>
+</div>
+
+<!-- ══ SECTION DIVIDER ══ -->
+<div class="section-divider">
+  <div class="ornament-rule"><span>&#10022; &#10022; &#10022;</span></div>
+</div>
+
+<!-- ══ PROJECTS ══ -->
+<div id="projects">
+<div class="page-wrap" style="padding-bottom:1.5rem;">
+  <div class="dept-header">
+    <span class="dept-label">Portfolio</span>
+    <div class="dept-rule"></div>
+    <span class="dept-number">Section I.</span>
+  </div>
+
+  <div class="projects-cols">
+
+    <div class="proj-story">
+      <div class="proj-kicker">R &middot; Neural Networks</div>
+      <h3>Annie: Neural Nets<br/>From First Principles</h3>
+      <div class="proj-deck">An R package that implements deep neural networks without framework abstraction</div>
+      <p class="proj-body">Neural networks built from scratch in R — no frameworks, no shortcuts. Forward passes, backprop, weight updates, all exposed. Built to understand, not to abstract.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">R</span>
+        <span class="proj-tag">Deep Learning</span>
+        <span class="proj-tag">Package Dev</span>
+      </div>
+      <a href="https://github.com/rohitsuresh1993/annie" target="_blank" rel="noopener" class="proj-link">View on GitHub &rarr;</a>
+    </div>
+
+    <div class="proj-story">
+      <div class="proj-kicker">Swift &middot; iOS &middot; Health</div>
+      <h3>Cyclo: Menstrual Health<br/>Tracking for iOS</h3>
+      <div class="proj-deck">A privacy-first mobile app surfacing personalized cycle insights</div>
+      <p class="proj-body">Designed and built end-to-end in Swift — data modeling, on-device analytics, and UI. All sensitive data stays local to the device.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">Swift</span>
+        <span class="proj-tag">iOS</span>
+        <span class="proj-tag">Health Tech</span>
+      </div>
+      <a href="https://github.com/rohitsuresh1993/cyclo-ios" target="_blank" rel="noopener" class="proj-link">View on GitHub &rarr;</a>
+    </div>
+
+    <div class="proj-story">
+      <div class="proj-kicker">Python &middot; NLP &middot; Deep Learning</div>
+      <h3>MCU Plot Generator<br/>Trained on the Multiverse</h3>
+      <div class="proj-deck">A character-level RNN that writes Marvel movie plots</div>
+      <p class="proj-body">A character-level RNN trained on MCU synopses that generates new Marvel plots. Results range from surprisingly coherent to deeply concerning.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">Python</span>
+        <span class="proj-tag">RNN</span>
+        <span class="proj-tag">NLP</span>
+        <span class="proj-tag">AWS</span>
+      </div>
+      <a href="https://github.com/rohitsuresh1993/mcu_plot_generator" target="_blank" rel="noopener" class="proj-link">View on GitHub &rarr;</a>
+    </div>
+
+    <div class="proj-story">
+      <div class="proj-kicker">MATLAB &middot; Risk Modeling</div>
+      <h3>Flooding Risk Curves<br/>for Urban Infrastructure</h3>
+      <div class="proj-deck">Statistical simulation of flood damage across return periods</div>
+      <p class="proj-body">Statistical simulation in MATLAB that turns rainfall data and population figures into probabilistic flood damage estimates across return periods.</p>
+      <div class="proj-tags">
+        <span class="proj-tag">MATLAB</span>
+        <span class="proj-tag">Statistical Modeling</span>
+        <span class="proj-tag">Simulation</span>
+      </div>
+      <a href="https://github.com/rohitsuresh1993/floodingrisk" target="_blank" rel="noopener" class="proj-link">View on GitHub &rarr;</a>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══ SECTION DIVIDER ══ -->
+<div class="section-divider">
+  <div class="ornament-rule"><span>&#10022; &#10022; &#10022;</span></div>
+</div>
+
+<!-- ══ WHY ME ══ -->
+<div id="why-me">
+<div class="page-wrap" style="padding-bottom:1.5rem;">
+  <div class="dept-header">
+    <span class="dept-label">Editorial &mdash; The Case for This Correspondent</span>
+    <div class="dept-rule"></div>
+    <span class="dept-number">Section II.</span>
+  </div>
+
+  <div style="border: 1.5px solid var(--rule);">
+    <div class="why-banner">&ldquo;The rare data scientist who speaks both languages — business and data — without losing fluency in either.&rdquo;</div>
+    <div class="why-grid">
+
+      <div class="why-col">
+        <div class="why-number">I.</div>
+        <div class="why-title">Business In, Data Out</div>
+        <p class="why-body">I can sit in a room where a business problem is being defined and leave knowing exactly what data is needed, what question to ask of it, and what the answer needs to look like for someone to act on it. Strategy doesn't get lost in translation.</p>
+      </div>
+
+      <div class="why-col">
+        <div class="why-number">II.</div>
+        <div class="why-title">Data In, Decisions Out</div>
+        <p class="why-body">I don't ship models — I ship clarity. The output of my work is always a decision someone can make with more confidence than before. I take results that only make sense inside a notebook and turn them into something a stakeholder can use.</p>
+      </div>
+
+      <div class="why-col">
+        <div class="why-number">III.</div>
+        <div class="why-title">Curious by Default</div>
+        <p class="why-body">I built an MCU plot generator because I wanted to understand how it worked — not because anyone asked. That kind of curiosity is the thing no job description can hire for directly, but every good team runs on.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ SECTION DIVIDER ══ -->
+<div class="section-divider">
+  <div class="ornament-rule"><span>&#10022; &#10022; &#10022;</span></div>
+</div>
+
+<!-- ══ SKILLS ══ -->
+<div id="skills">
+<div class="page-wrap" style="padding-bottom:1.5rem;">
+  <div class="dept-header">
+    <span class="dept-label">Classified Notices &mdash; Core Competencies</span>
+    <div class="dept-rule"></div>
+    <span class="dept-number">Section III.</span>
+  </div>
+
+  <div class="skills-box">
+    <div class="skills-box-header">Core Competencies &mdash; Top Ten</div>
+    <div class="skills-grid">
+
+      <div class="skills-group">
+        <div class="comp-inner">
+          <svg class="comp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+          <div class="comp-right">
+            <div class="comp-title">Languages</div>
+            <div class="comp-pills">
+              <span class="comp-pill">Python</span>
+              <span class="comp-pill">SQL</span>
+              <span class="comp-pill">R</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-group">
+        <div class="comp-inner">
+          <svg class="comp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <circle cx="4.5" cy="6" r="2"/><circle cx="19.5" cy="6" r="2"/>
+            <circle cx="4.5" cy="18" r="2"/><circle cx="19.5" cy="18" r="2"/>
+            <line x1="6.3" y1="7.1" x2="10.2" y2="10.2"/>
+            <line x1="17.7" y1="7.1" x2="13.8" y2="10.2"/>
+            <line x1="6.3" y1="16.9" x2="10.2" y2="13.8"/>
+            <line x1="17.7" y1="16.9" x2="13.8" y2="13.8"/>
+          </svg>
+          <div class="comp-right">
+            <div class="comp-title">AI &amp; Machine Learning</div>
+            <div class="comp-pills">
+              <span class="comp-pill">RAG Pipelines</span>
+              <span class="comp-pill">LLMs</span>
+              <span class="comp-pill">Anomaly Detection</span>
+              <span class="comp-pill">NLP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-group">
+        <div class="comp-inner">
+          <svg class="comp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+          </svg>
+          <div class="comp-right">
+            <div class="comp-title">Cloud &amp; Deployment</div>
+            <div class="comp-pills">
+              <span class="comp-pill">AWS</span>
+              <span class="comp-pill">Docker</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="skills-group">
+        <div class="comp-inner">
+          <svg class="comp-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+          </svg>
+          <div class="comp-right">
+            <div class="comp-title">Data &amp; Modeling</div>
+            <div class="comp-pills">
+              <span class="comp-pill">Statistical Modeling</span>
+              <span class="comp-pill">Time-Series Analysis</span>
+              <span class="comp-pill">Risk Modeling</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- ══ SECTION DIVIDER ══ -->
+<div class="section-divider">
+  <div class="ornament-rule"><span>&#10022; &#10022; &#10022;</span></div>
+</div>
+
+<!-- ══ OFF THE RECORD ══ -->
+<div id="off-record">
+<div class="page-wrap" style="padding-bottom:1.5rem;">
+  <div class="dept-header">
+    <span class="dept-label">Off The Record &mdash; The Correspondent at Large</span>
+    <div class="dept-rule"></div>
+    <span class="dept-number">Section IV.</span>
+  </div>
+
+  <div style="border: 1.5px solid var(--rule); padding: 1.5rem 1.75rem;">
+    <p style="font-family:'EB Garamond',serif; font-size:1rem; color:var(--ink-mid); line-height:1.75; font-style:italic;">
+      Off the clock, I am an unreasonably devoted Bayern Munich supporter who treats every match as a minor life event. I cook by feel, with a lot of tasting and the occasional catastrophic failure. I have a soft spot for animals that borders on a personal policy. And somewhere in the margins, I am trying to make a short film. I am, in other words, a person.
+    </p>
+  </div>
+
+  <div class="off-links-panel">
+
+    <div class="off-links-group">
+      <div class="off-links-title">Where I let loose</div>
+      <div class="off-links-row">
+
+        <a href="https://www.summitatsnoqualmie.com/" target="_blank" rel="noopener" class="off-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="4" r="1.5"/>
+            <path d="M5 21 L10 12 L12 15 L14 11 L19 21"/>
+            <path d="M3 21 H21"/>
+            <path d="M9 21 L9 17 Q12 15 15 17 L15 21"/>
+          </svg>
+          <span class="off-link-label">Snoqualmie</span>
+        </a>
+
+        <a href="https://www.nps.gov/mora/index.htm" target="_blank" rel="noopener" class="off-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 21 L8 8 L12 14 L16 9 L22 21 Z"/>
+            <path d="M8 8 L10.5 11"/>
+          </svg>
+          <span class="off-link-label">Mt Rainier</span>
+        </a>
+
+        <a href="https://www.nps.gov/olym/index.htm" target="_blank" rel="noopener" class="off-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22 L12 12"/>
+            <path d="M12 12 C12 8 7 5 5 7 C7 7 9 9 12 12"/>
+            <path d="M12 15 C12 11 17 8 19 10 C17 10 14 12 12 15"/>
+            <path d="M12 18 C12 14 8 12 6 14 C8 14 10 16 12 18"/>
+          </svg>
+          <span class="off-link-label">Olympic NP</span>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="off-links-group">
+      <div class="off-links-title">I'd like to divert your attention to</div>
+      <div class="off-links-row">
+
+        <a href="https://www.zoo.org/donate" target="_blank" rel="noopener" class="off-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="14" r="4"/>
+            <circle cx="5.5" cy="9.5" r="1.8"/>
+            <circle cx="18.5" cy="9.5" r="1.8"/>
+            <circle cx="8.5" cy="6" r="1.5"/>
+            <circle cx="15.5" cy="6" r="1.5"/>
+          </svg>
+          <span class="off-link-label">Woodland Park Zoo</span>
+        </a>
+
+        <a href="https://www.orcaconservancy.org/" target="_blank" rel="noopener" class="off-link">
+          <img src="https://cdn-icons-png.flaticon.com/512/455/455981.png" class="icon-img" alt="Orca" />
+          <span class="off-link-label">Orca Conservancy</span>
+        </a>
+
+        <a href="https://streetcause.org/donate/" target="_blank" rel="noopener" class="off-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span class="off-link-label">StreetCause</span>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="off-links-group">
+      <div class="off-links-title">Art I engage with</div>
+      <div class="off-links-row">
+
+        <a href="https://letterboxd.com/rho93/" target="_blank" rel="noopener" class="off-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="13" height="10" rx="2"/>
+            <path d="M15 10l6-3v10l-6-3V10z"/>
+            <circle cx="8.5" cy="12" r="2"/>
+          </svg>
+          <span class="off-link-label">Letterboxd</span>
+        </a>
+
+        <a href="https://open.spotify.com/user/217bssh2nmoqmku6cyfe2pvua?si=c895ef08163643b2" target="_blank" rel="noopener" class="off-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M6 9 C9 7.5 15 7.5 18 9"/>
+            <path d="M7 12.5 C10 11 14 11 17 12.5"/>
+            <path d="M8.5 16 C10.5 15 13.5 15 15.5 16"/>
+          </svg>
+          <span class="off-link-label">Spotify</span>
+        </a>
+
+        <a href="https://pin.it/5TP3kVZcp" target="_blank" rel="noopener" class="off-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10a2 2 0 0 0 0-4 1 1 0 0 1 0-2h1.8A6 6 0 0 0 20 10c0-4.42-3.58-8-8-8z"/>
+            <circle cx="6.5" cy="11.5" r="1"/>
+            <circle cx="9" cy="7" r="1"/>
+            <circle cx="14" cy="7" r="1"/>
+            <circle cx="17" cy="11.5" r="1"/>
+          </svg>
+          <span class="off-link-label">Pinterest</span>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══ SECTION DIVIDER ══ -->
+<div class="section-divider">
+  <div class="ornament-rule"><span>&#10022; &#10022; &#10022;</span></div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div id="contact">
+<div class="page-wrap" style="padding-bottom:1.5rem;">
+  <div class="dept-header">
+    <span class="dept-label">Personal Notices &mdash; Correspondence &amp; Inquiries</span>
+    <div class="dept-rule"></div>
+    <span class="dept-number">Section V.</span>
+  </div>
+
+  <div class="notices-grid">
+    <div class="notice-col">
+      <p class="notice-intro">The undersigned is open to data science, machine learning engineering, and artificial intelligence opportunities — whether a full-time position, contract engagement, or merely a stimulating exchange of ideas regarding what you are building.</p>
+    </div>
+    <div class="notice-col">
+      <div class="notice-btns">
+        <a href="mailto:rohit.suresh1993@gmail.com" class="notice-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+          </svg>
+          Email
+        </a>
+        <a href="https://github.com/rohitsuresh1993" target="_blank" rel="noopener" class="notice-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65S9.07 17.3 9 18v4"/>
+            <path d="M9 18c-4.51 2-5-2-7-2"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/rohitsuresh1993/" target="_blank" rel="noopener" class="notice-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <span class="footer-flag">The Dispatch</span>
+  <span class="footer-note">Printed in Seattle, Washington &middot; May 2026 &middot; All Rights Reserved</span>
+</footer>
+
+<script>
+  /* Show gothic TD logo after masthead scrolls out of view */
+  const mainNav = document.getElementById('main-nav');
+  const masthead = document.querySelector('.masthead');
+  function onScroll() {
+    if (window.scrollY > masthead.offsetHeight) {
+      mainNav.classList.add('scrolled');
+    } else {
+      mainNav.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+</script>
+
+</body>
+</html>
